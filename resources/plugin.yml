@@ -1,0 +1,105 @@
+name: VariableTriggers
+version: 2
+prefix: VTV2
+main: com.github.lyokofirelyte.VariableTriggers.VariableTriggers
+author: Lyoko Firelyte
+
+softdepend:
+  - Vault
+                             
+permissions:
+    vtriggers.admin:
+        default: op
+        children:
+            vtriggers.create.*: true
+            vtriggers.use.*: true  
+    vtriggers.player:
+        default: true
+        children:
+            vtriggers.use.*: true       
+    vtriggers.use.*:
+        description: Allow the use of triggers
+        default: true
+        children:
+            vtriggers.use.walk: true
+            vtriggers.use.click: true
+            vtriggers.use.command: true
+            vtriggers.use.event: true    
+    vtriggers.create.*:
+        description: Allow creation of walk triggers
+        default: false
+        children:
+            vtriggers.create.command: true
+            vtriggers.create.commandremove: true
+            vtriggers.create.area: true
+            vtriggers.create.arearemove: true
+            vtriggers.create.event: true
+            vtriggers.create.eventremove: true
+            vtriggers.create.walk: true
+            vtriggers.create.walkremove: true
+            vtriggers.create.walkreset: true
+            vtriggers.create.click: true
+            vtriggers.create.clickremove: true
+            vtriggers.create.clickreset: true
+            vtriggers.walkview: true
+            vtriggers.clickview: true
+            vtriggers.eventview: true
+            vtriggers.areaview: true
+            vtriggers.commandview: true
+            vtriggers.create.clear: true
+    vtriggers.use.walk:
+        default: true
+    vtriggers.use.click:
+        default: true
+    vtriggers.use.command:
+        default: true
+    vtrigger.use.event:
+        default: true
+    vtriggers.create.command:
+        description: Allow creation of command triggers
+        default: false
+    triggers.create.commandremove:
+        description: Allow removal of command triggers
+        default: false
+    vtriggers.areaview:
+        description: Allow viewing of area script
+        default: false
+    vtriggers.create.event:
+        description: Allow creation of event triggers
+        default: false
+    vtriggers.create.eventremove:
+        description: Allow removal of event triggers
+        default: false
+    vtriggers.eventview:
+        description: Allow viewing of event script
+        default: false
+    vtriggers.create.walk:
+        description: Allow creation of walk triggers
+        default: false
+    vtriggers.create.walkremove:
+        description: Allow removal of walk triggers
+        default: false
+    vtriggers.create.walkreset:
+        description: Allow reset of walk triggers
+        default: false
+    vtriggers.walkview:
+        description: Allow viewing of script
+        default: false
+    vtriggers.create.click:
+        description: Allow creation of click triggers
+        default: false
+    vtriggers.create.clickremove:
+        description: Allow removal of click triggers
+        default: false
+    vtriggers.create.clickreset:
+        description: Allow reset of click triggers
+        default: false
+    vtriggers.clickview:
+        description: Allow viewing of script
+        default: false
+    vtriggers.commandview:
+        description: Allow viewing of command triggers
+        default: false
+    vtriggers.create.clear:
+        description: Allow Clearing of last command
+        default: false

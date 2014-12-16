@@ -1,0 +1,238 @@
+
+dev/beta build VTV2 additions
+ - self-reminders and for kaydac, thanks for testing ;D
+
+new placeholders:
+
+== area ==
+
+<movetype>  EXIT / ENTER
+
+<isflying>
+
+== block break / place ==
+<blockmaterial>
+<blocklocation>
+<blockxp>
+
+== player death ==
+<isprojectile>
+<killerentitytype>
+<deathcause>
+
+== potion splash ==
+
+<potion:name>
+<potion:lore:index>
+<potion:displayname>
+<potion:enchant:index>  returns name_level
+<potion:amount>
+<potion:lore:amount>
+<potion:enchant:amount>
+<potion:effect:amount>
+<thrower>
+<throwername>
+<affectedentity:amount>
+<affectedentity:index:type>
+<affectedentity:index:name>
+<affectedentity:index:location>
+<potion:effect:index:type>
+<potion:effect:index:amplifier>
+<potion:effect:index:duration>
+
+== player click air, player click block, player trigger pressure plate ==
+
+<clicktype>
+<blockid>
+<blockdata>
+<blocktype>
+<blockmaterial>
+<blocklocation>
+
+<clicktype> can be 
+ - RIGHT_CLICK_AIR
+ - LEFT_CLICK_AIR
+ - RIGHT_CLICK_BLOCK
+ - LEFT_CLICK_BLOCK
+ - PHYSICAL
+
+>> only <clicktype> for "air" for obvious reasons
+
+== server list ping ==
+
+<motd>
+<hostaddress>
+<onlineplayers>
+<maxplayers>
+
+== item despawn ==
+
+<despawneditem:name>
+<despawneditem:lore:index>
+<despawneditem:displayname>
+<despawneditem:enchant:index>  returns name_level
+<despawneditem:amount>
+<despawneditem:lore:amount>
+<despawneditem:enchant:amount>
+
+== item spawn ==
+
+<spawneditem:name>
+<spawneditem:lore:index>
+<spawneditem:displayname>
+<spawneditem:enchant:index>  returns name_level
+<spawneditem:amount>
+<spawneditem:lore:amount>
+<spawneditem:enchant:amount>
+
+== player enchant ==
+
+<enchanteditem:name>
+<enchanteditem:lore:index>
+<enchanteditem:displayname>
+<enchanteditem:enchant:index>  returns name_level
+<enchanteditem:amount>
+<enchanteditem:lore:amount>
+<enchanteditem:enchant:amount>
+
+== entity explode ==
+
+<explodedblock:amount>
+<explodedblock:index:type>
+<explodedblock:index:byte>
+<explodedblock:index:location>
+<yeild>
+<entitytype>
+
+== entity create portal ==
+
+<portaltype>
+<entitytype>
+
+== vehicle enter / exit ==
+<entitytype>
+<entityname>
+
+== bed enter / exit ==
+
+== player / console command ==
+<cmdarg:1> to infinite
+<cmdarg1> to infinite
+
+== entity death ==
+
+<drops:0> to infinite (mat name to lower case)
+<droppedexp>
+
+== inventory click ==
+
+<clickeditemenchant:index>
+<inventorysize>
+
+== player join/quit ==
+
+Set cancelled to prevent message from coming up
+Broadcast your own later?
+
+== entity damage ==
+
+<damagedbyplayer>
+<damageamount>
+<damagecause>
+
+== lightning strike ==
+
+== bucket fill/empty event ==
+
+<waterlocation>
+<emptylocation>
+
+== drop item event ==
+
+<droppeditem:name>
+<droppeditem:lore:index>
+<droppeditem:displayname>
+<droppeditem:enchant:index>  returns name_level
+<droppeditem:amount>
+<droppeditem:enchant:amount>
+<droppeditem:lore:amount>
+
+== item hold ==
+
+<oldslot>
+<newslot>
+
+== projectile hit event ==
+
+<projectile>
+<projectileshooter>
+<projectileshootername>
+
+new scripts:
+
+@MODIFYPLAYER:
+    - DAMAGE <amount>
+    - PLAYERTIME <number>
+
+@SETMOTD <message>
+@SETCANCELLED <event name> <true/false>
+@WORLDEDIT SETPOS1 <loc>
+
+functional:
+
+<health:optionalplayer>
+<maxhealth:optionalplayer>
+<contains:arg1:arg2>
+<isop:player>
+<playerloc:world>
+<random:from:to>
+<arraysize:@Some.List>
+<contains:args[0]:args[1]>
+<triggerloc:x>  (to z) and world
+
+@IF == for exact
+@IF = for non-case
+
+@CALL this:scriptName - calls another method in the same file
+@WHILE acts a bit nuts if you nest it. Oh well.
+ - fix added that waits for the @WHILE to finish before moving on
+ 
+@LOOP removed. Use @WHILE & a counter variable.
+Once again, I'm lazy as hell.
+
+new help menus:
+
+ADDED EXTRA SEXY
+
+new commands:
+
+/vt debug (toggle debug status)
+/vt s ?  (script manager)
+Some commands reformatted
+/vt ?, /vt core
+
+extras?:
+
+@OPENINV <name> [player]
+
+
+=== area triggers ===
+
+Added a priority system instead of the whatever it was before ???
+higher priority will be the region you're standing in
+(less complicated)
+
+You can no longer edit / delete / add scripts for area triggers in game
+I'm a lazy-bum, basically.
+You can define areas though still.
+
+<sn:> is deprecated
+@QUIET is deprecated
+[placeholder] replaces first, then <placeholder>
+@SET for all data types
+@IF $some.var instead of @IF s $some.var // auto detection on old scripts
+move vars from obj.dataType.key to obj.key on boot
+@Some.Array is now $Some.Array because the [ ] is a better indicator; $Some.Array[10] is clear enough
+
+auto spigot detection, uses sync thread when necessary
+=== works with 1.8+ with trove library included! ===
