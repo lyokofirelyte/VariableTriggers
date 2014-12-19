@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -144,16 +145,17 @@ public class VTParser {
 		currentLine = parseFunctionalHolders(currentLine);
 		final String[] args = currentLine.split(" ");
 		
-		List<String> players = new ArrayList<String>();
-		List<String> UUIDs = new ArrayList<String>();
+		//List<String> players = new ArrayList<String>();
+		//List<String> UUIDs = new ArrayList<String>();
+		/*Collection<? extends Player> players = Bukkit.getServer().getOnlinePlayers();
 		
-		for (Player p : Bukkit.getOnlinePlayers()){
+		for (Player p : players){
 			players.add(p.getName());
 			UUIDs.add(p.getUniqueId().toString());
-		}
+		}*/
 		
-		main.vars.set("VTSystem.StringLists.OnlinePlayers", players);
-		main.vars.set("VTSystem.StringLists.OnlineUUIDs", UUIDs);
+		//main.vars.set("VTSystem.OnlinePlayers", players);
+		//main.vars.set("VTSystem.OnlineUUIDs", UUIDs);
 		
 		if (!currentLine.startsWith("\\//")){
 

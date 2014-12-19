@@ -11,11 +11,6 @@
 	</properties>
 	<dependencies>
 		<dependency>
-			<groupId>com.github.lyokofirelyte</groupId>
-			<artifactId>UberJar-1.7.10</artifactId>
-			<version>1.0</version>
-		</dependency>
-		<dependency>
 			<groupId>net.milkbowl.vault</groupId>
 			<artifactId>Vault</artifactId>
 			<version>1.2.27</version>
@@ -33,7 +28,7 @@
 		</repository>
 	</repositories>
 	<build>
-		<sourceDirectory>.</sourceDirectory>
+		<sourceDirectory>vt</sourceDirectory>
 		<resources>
 			<resource>
 				<directory>resources</directory>

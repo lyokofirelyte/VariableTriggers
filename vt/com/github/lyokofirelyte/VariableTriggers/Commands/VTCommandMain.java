@@ -702,7 +702,7 @@ public class VTCommandMain implements AR {
 		}
 	}
 	
-	@VTCommand(aliases = {"vtcommand", "vtcmd"}, desc = "VT Command Trigger Command", help = "/vtcommand ?", perm = "vtriggers.create.command")
+	@VTCommand(aliases = {"vtcommand", "vtcmd"}, desc = "VT Command Trigger Command", help = "/vtcommand ?", perm = "vtriggers.create.command", min = 1)
 	public void onVTCommand(CommandSender sender, String[] args){
 		
 		PlayerCommand commands = (PlayerCommand) main.getInstance(PlayerCommand.class);
