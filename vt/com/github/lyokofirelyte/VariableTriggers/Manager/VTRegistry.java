@@ -100,7 +100,7 @@ public class VTRegistry implements CommandExecutor {
     									VTUtils.s(sender, "&4No permission!");
     								}
     							} catch (Exception e) {
-    								e.printStackTrace();
+    								VTUtils.s(sender, "&c&oError parsing command! See /vt ? for help if necessary.");
     							}
     						}
     					}

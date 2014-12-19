@@ -492,6 +492,7 @@ public class VTSetup {
 		} catch (Exception e){}
 		
 		main.settings.set(VTConfig.FIRST_RUN, true);
+		main.settings.set(VTConfig.DEBUG, true);
 		main.settings.save();
 		
 		try {

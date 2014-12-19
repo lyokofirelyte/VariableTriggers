@@ -735,19 +735,23 @@ public class VTCommandMain implements AR {
 				
 				List<Object> toRemove = new ArrayList<Object>();
 				
-				if (commands.containsKey(args[1] + ".Script")){
+				if (args.length == 2 && commands.containsKey(args[1] + ".Script")){
+					
 					for (Object s : commands.keySet()){
 						if (commands.toString(s).startsWith(args[1])){
 							toRemove.add(s);
 						}
 					}
+					
+					for (Object o : toRemove){
+						commands.remove(o);
+					}
+					
+					VTUtils.s(sender, "Removed " + args[1] + ".");
+					
+				} else {
+					VTUtils.s(sender, "Invalid args! /vtcmd ?");
 				}
-				
-				for (Object o : toRemove){
-					commands.remove(o);
-				}
-				
-				VTUtils.s(sender, "Removed " + args[1] + ".");
 				
 			break;
 			
@@ -778,7 +782,7 @@ public class VTCommandMain implements AR {
 			
 			case "edit": case "e":
 				
-				if (commands.containsKey(args[1] + ".Script") && VTUtils.isInteger(args[2])){
+				if (args.length >= 4 && commands.containsKey(args[1] + ".Script") && VTUtils.isInteger(args[2])){
 					
 					List<String> script = new ArrayList<String>();
 					int x = 0;
@@ -856,17 +860,25 @@ public class VTCommandMain implements AR {
 				
 			break;
 		
-			default:
+			case "add":
 				
-				if (commands.containsKey(args[1] + ".Script")){
+				if (commands.containsKey(args[1] + ".Script") && args.length >= 3){
 					commands.getList(args[1] + ".Script").add(VTUtils.createString(args, 2));
 					VTUtils.s(sender, "Added a line of code to " + args[1] + ".");
-				} else {
+				} else if (args.length >= 3){
 					commands.set(args[1] + ".Script", new ArrayList<String>(Arrays.asList(VTUtils.createString(args, 2))));
 					commands.set(args[1] + ".Override", false);
 					VTUtils.s(sender, "Created the command " + args[1] + ".");
+				} else {
+					VTUtils.s(sender, "Incorrect args! /vtcmd ?");
 				}
 			
+			break;
+			
+			default:
+				
+				VTUtils.s(sender, "/vtcmd ?");
+				
 			break;
 		}
 	}
