@@ -30,7 +30,7 @@ public class PlayerClickBlock extends VTMap<Object, Object> implements AR {
 				if (getBool("Cancelled")){
 					e.setCancelled(true);
 				}
-				if (getList("main").size() > 0 && e.getAction() == Action.LEFT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_BLOCK){
+				if (getList("main").size() > 0 && (e.getAction() == Action.LEFT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_BLOCK)){
 					new VTParser(main, "PlayerClickBlock.yml", "main", getList("main"), e.getClickedBlock().getLocation(), getCustoms(e), e.getPlayer().getName()).start();
 					cooldown();
 				}

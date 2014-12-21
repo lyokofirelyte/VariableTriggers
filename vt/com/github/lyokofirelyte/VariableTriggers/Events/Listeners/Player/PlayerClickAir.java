@@ -30,8 +30,8 @@ public class PlayerClickAir extends VTMap<Object, Object> implements AR {
 				if (getBool("Cancelled")){
 					e.setCancelled(true);
 				}
-				if (getList("main").size() > 0 && e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_AIR){
-					new VTParser(main, "PlayerClickAir.yml", "main", getList("main"), e.getClickedBlock().getLocation(), getCustoms(e), e.getPlayer().getName()).start();
+				if (getList("main").size() > 0 && (e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_AIR)){
+					new VTParser(main, "PlayerClickAir.yml", "main", getList("main"), e.getPlayer().getLocation(), getCustoms(e), e.getPlayer().getName()).start();
 					cooldown();
 				}
 			}
@@ -40,7 +40,7 @@ public class PlayerClickAir extends VTMap<Object, Object> implements AR {
 	
 	private THashMap<String, String> getCustoms(PlayerInteractEvent e){
 		
-		Vector loc = e.getClickedBlock().getLocation().toVector();
+		Vector loc = e.getPlayer().getLocation().toVector();
 		THashMap<String, String> map = new THashMap<String, String>();
 		map.put("<clicktype>", e.getAction().name());
 		
