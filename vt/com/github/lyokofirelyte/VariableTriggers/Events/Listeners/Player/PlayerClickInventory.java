@@ -1,6 +1,6 @@
 package com.github.lyokofirelyte.VariableTriggers.Events.Listeners.Player;
 
-import gnu.trove.map.hash.THashMap;
+import java.util.HashMap;
 
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.EventHandler;
@@ -38,9 +38,9 @@ public class PlayerClickInventory extends VTMap<Object, Object> implements AR {
 		}
 	}
 	
-	private THashMap<String, String> getCustoms(InventoryClickEvent e){
+	private HashMap<String, String> getCustoms(InventoryClickEvent e){
 
-		THashMap<String, String> map = new THashMap<String, String>();
+		HashMap<String, String> map = new HashMap<String, String>();
 		ItemStack i = e.getCurrentItem();
 		
 		map.put("<clickedslot>", e.getSlot() + "");

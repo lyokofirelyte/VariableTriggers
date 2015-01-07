@@ -1,6 +1,6 @@
 package com.github.lyokofirelyte.VariableTriggers.Events.Listeners.Player;
 
-import gnu.trove.map.hash.THashMap;
+import java.util.HashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
@@ -69,9 +69,9 @@ public class PlayerCommand extends VTMap<Object, Object> implements AR {
 		}
 	}
 
-	private THashMap<String, String> getCustoms(PlayerCommandPreprocessEvent e){
+	private HashMap<String, String> getCustoms(PlayerCommandPreprocessEvent e){
 		
-		THashMap<String, String> map = new THashMap<String, String>();
+		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("<cmdline>", e.getMessage().replace(e.getMessage().split(" ")[0], ""));
 		map.put("<cmdargcount>", e.getMessage().split(" ").length + "");
 		map.put("<cmdname>", e.getMessage().split(" ")[0].replace("\\/", ""));

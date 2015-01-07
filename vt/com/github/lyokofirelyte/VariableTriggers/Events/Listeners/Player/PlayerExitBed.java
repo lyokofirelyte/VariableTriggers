@@ -1,6 +1,6 @@
 package com.github.lyokofirelyte.VariableTriggers.Events.Listeners.Player;
 
-import gnu.trove.map.hash.THashMap;
+import java.util.HashMap;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerBedLeaveEvent;
@@ -26,7 +26,7 @@ public class PlayerExitBed extends VTMap<Object, Object> implements AR {
 		if (getList("Worlds").contains(e.getPlayer().getWorld().getName())){
 			if (getLong("ActiveCooldown") <= System.currentTimeMillis()){
 				if (getList("main").size() > 0){
-					new VTParser(main, "PlayerExitBed.yml", "main", getList("main"), e.getBed().getLocation(), new THashMap<String, String>(), e.getPlayer().getName()).start();
+					new VTParser(main, "PlayerExitBed.yml", "main", getList("main"), e.getBed().getLocation(), new HashMap<String, String>(), e.getPlayer().getName()).start();
 					cooldown();
 				}
 			}

@@ -1,6 +1,6 @@
 package com.github.lyokofirelyte.VariableTriggers.Events.Listeners.Entity;
 
-import gnu.trove.map.hash.THashMap;
+import java.util.HashMap;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDeathEvent;
@@ -33,9 +33,9 @@ public class EntityDeath extends VTMap<Object, Object> implements AR {
 		}
 	}
 	
-	private THashMap<String, String> getCustoms(EntityDeathEvent e){
+	private HashMap<String, String> getCustoms(EntityDeathEvent e){
 
-		THashMap<String, String> map = new THashMap<String, String>();
+		HashMap<String, String> map = new HashMap<String, String>();
 		String type = e.getEntity().getType().name();
 		
 		map.put("<whodied>", type.substring(0, 1) + type.substring(1).toLowerCase());

@@ -1,6 +1,6 @@
 package com.github.lyokofirelyte.VariableTriggers.Events.Listeners.Player;
 
-import gnu.trove.map.hash.THashMap;
+import java.util.HashMap;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
@@ -38,10 +38,10 @@ public class PlayerTriggerPressurePlate extends VTMap<Object, Object> implements
 		}
 	}
 	
-	private THashMap<String, String> getCustoms(PlayerInteractEvent e){
+	private HashMap<String, String> getCustoms(PlayerInteractEvent e){
 		
 		Vector loc = e.getClickedBlock().getLocation().toVector();
-		THashMap<String, String> map = new THashMap<String, String>();
+		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("<clicktype>", e.getAction().name());
 		map.put("<blockid>", e.getClickedBlock().getType().getId() + "");
 		map.put("<blockdata>", e.getClickedBlock().getData() + "");

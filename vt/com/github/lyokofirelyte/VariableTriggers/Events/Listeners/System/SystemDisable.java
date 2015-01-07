@@ -1,6 +1,6 @@
 package com.github.lyokofirelyte.VariableTriggers.Events.Listeners.System;
 
-import gnu.trove.map.hash.THashMap;
+import java.util.HashMap;
 
 import org.bukkit.event.EventHandler;
 
@@ -26,7 +26,7 @@ public class SystemDisable extends VTMap<Object, Object> implements AR {
 		
 		if (getLong("ActiveCooldown") <= System.currentTimeMillis() && e.getType().equals(VTData.DISABLE)){
 			if (getList("main").size() > 0){
-				new VTParser(main, "SystemDisable.yml", "main", getList("main"), e.getLocation(), new THashMap<String, String>(), e.getSender()).start();
+				new VTParser(main, "SystemDisable.yml", "main", getList("main"), e.getLocation(), new HashMap<String, String>(), e.getSender()).start();
 				cooldown();
 			}
 		}

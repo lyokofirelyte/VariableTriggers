@@ -1,6 +1,6 @@
 package com.github.lyokofirelyte.VariableTriggers.Events.Listeners.System;
 
-import gnu.trove.map.hash.THashMap;
+import java.util.HashMap;
 
 import org.bukkit.event.EventHandler;
 
@@ -33,9 +33,9 @@ public class CommandNotFound extends VTMap<Object, Object> implements AR {
 		}
 	}
 
-	private THashMap<String, String> getCustoms(CommandNotFoundEvent e){
+	private HashMap<String, String> getCustoms(CommandNotFoundEvent e){
 		
-		THashMap<String, String> map = new THashMap<String, String>();
+		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("<cmdname>", e.getType());
 		return map;
 	}

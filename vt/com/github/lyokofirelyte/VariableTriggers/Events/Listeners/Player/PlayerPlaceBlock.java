@@ -1,6 +1,6 @@
 package com.github.lyokofirelyte.VariableTriggers.Events.Listeners.Player;
 
-import gnu.trove.map.hash.THashMap;
+import java.util.HashMap;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -38,10 +38,10 @@ public class PlayerPlaceBlock extends VTMap<Object, Object> implements AR {
 	}
 	
 	@SuppressWarnings("deprecation")
-	private THashMap<String, String> getCustoms(BlockPlaceEvent e){
+	private HashMap<String, String> getCustoms(BlockPlaceEvent e){
 		
 		Vector loc = e.getBlock().getLocation().toVector();
-		THashMap<String, String> map = new THashMap<String, String>();
+		HashMap<String, String> map = new HashMap<String, String>();
 
 		map.put("<blockid>", e.getBlock().getType().getId() + "");
 		map.put("<blockdata>", e.getBlock().getData() + "");

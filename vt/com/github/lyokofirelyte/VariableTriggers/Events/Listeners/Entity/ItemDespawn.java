@@ -1,6 +1,6 @@
 package com.github.lyokofirelyte.VariableTriggers.Events.Listeners.Entity;
 
-import gnu.trove.map.hash.THashMap;
+import java.util.HashMap;
 
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.EventHandler;
@@ -38,9 +38,9 @@ public class ItemDespawn extends VTMap<Object, Object> implements AR {
 		}
 	}
 	
-	private THashMap<String, String> getCustoms(ItemDespawnEvent e){
+	private HashMap<String, String> getCustoms(ItemDespawnEvent e){
 
-		THashMap<String, String> map = new THashMap<String, String>();
+		HashMap<String, String> map = new HashMap<String, String>();
 		ItemStack i = e.getEntity().getItemStack();
 		int x = 0;
 		

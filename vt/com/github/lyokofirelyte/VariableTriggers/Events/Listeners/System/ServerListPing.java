@@ -1,6 +1,6 @@
 package com.github.lyokofirelyte.VariableTriggers.Events.Listeners.System;
 
-import gnu.trove.map.hash.THashMap;
+import java.util.HashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -38,9 +38,9 @@ public class ServerListPing extends VTMap<Object, Object> implements AR {
 		}
 	}
 	
-	private THashMap<String, String> getCustoms(ServerListPingEvent e){
+	private HashMap<String, String> getCustoms(ServerListPingEvent e){
 		
-		THashMap<String, String> map = new THashMap<String, String>();
+		HashMap<String, String> map = new HashMap<String, String>();
 		
 		map.put("<motd>", e.getMotd());
 		map.put("<hostip>", e.getAddress().getHostAddress());

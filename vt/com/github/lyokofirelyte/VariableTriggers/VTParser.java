@@ -1,7 +1,5 @@
 package com.github.lyokofirelyte.VariableTriggers;
 
-import gnu.trove.map.hash.THashMap;
-
 import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -21,7 +19,6 @@ import javax.script.ScriptEngineManager;
 import net.milkbowl.vault.economy.EconomyResponse;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Effect;
 import org.bukkit.FireworkEffect;
@@ -47,7 +44,6 @@ import com.github.lyokofirelyte.VariableTriggers.Identifiers.VTData;
 import com.github.lyokofirelyte.VariableTriggers.Identifiers.VTMap;
 import com.github.lyokofirelyte.VariableTriggers.Utils.VTUtils;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
-import com.sk89q.worldedit.bukkit.selections.Selection;
 import com.sk89q.worldedit.regions.RegionSelector;
 
 public class VTParser {
@@ -61,7 +57,7 @@ public class VTParser {
 	
 	private Player p;
 	private List<String> script;
-	private THashMap<String, String> customPlaceHolders;
+	private HashMap<String, String> customPlaceHolders;
 	private boolean async = true;
 	private boolean prevSucc = true;
 	private int ifLevel = 0;
@@ -72,7 +68,7 @@ public class VTParser {
 		main = i;
 	}
 	
-	public VTParser(VariableTriggers i, String fileName, String scriptName, List<String> script, Location triggerLoc, THashMap<String, String> customPlaceHolders, String sender){
+	public VTParser(VariableTriggers i, String fileName, String scriptName, List<String> script, Location triggerLoc, HashMap<String, String> customPlaceHolders, String sender){
 		main = i;
 		this.fileName = fileName;
 		this.scriptName = scriptName;
@@ -106,6 +102,8 @@ public class VTParser {
 							async = true;
 						} catch (IllegalStateException e){
 							
+							async = false;
+							
 							try {
 								
 								Bukkit.getScheduler().scheduleSyncDelayedTask(main, new Runnable(){
@@ -113,14 +111,15 @@ public class VTParser {
 										if (main.settings.getBool(VTConfig.ASYNC_WARNING)){
 											main.debug("Async fail! Moving to sync thread...", scriptName, line, fileName);
 										}
-										async = false;
 										parse();
+										line++;
 									}
 								}, 0L);
 								
 							} catch (Exception ee){
 								ee.printStackTrace();
 								main.logger.warning("Failed to parse the entire line @ " + scriptName + " (" + line + ")");
+								line++;
 							}
 							
 						} catch (Exception e){
@@ -130,7 +129,9 @@ public class VTParser {
 							System.out.println("");
 						}
 						
-						line++;
+						if (async){
+							line++;
+						}
 					}
 				}
 			}

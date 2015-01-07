@@ -1,6 +1,6 @@
 package com.github.lyokofirelyte.VariableTriggers.Events.Listeners.Player;
 
-import gnu.trove.map.hash.THashMap;
+import java.util.HashMap;
 
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -35,9 +35,9 @@ public class PlayerDeath extends VTMap<Object, Object> implements AR {
 		}
 	}
 	
-	private THashMap<String, String> getCustoms(PlayerDeathEvent e){
+	private HashMap<String, String> getCustoms(PlayerDeathEvent e){
 		
-		THashMap<String, String> map = new THashMap<String, String>();
+		HashMap<String, String> map = new HashMap<String, String>();
 
 		map.put("<killedbyplayer>", (e.getEntity().getKiller() instanceof Player) + "");
 		map.put("<whodied>", e.getEntity().getName());

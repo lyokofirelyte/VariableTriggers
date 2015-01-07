@@ -1,6 +1,6 @@
 package com.github.lyokofirelyte.VariableTriggers.Events.Listeners.System;
 
-import gnu.trove.map.hash.THashMap;
+import java.util.HashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -41,9 +41,9 @@ public class ConsoleCommand extends VTMap<Object, Object> implements AR {
 		}
 	}
 	
-	private THashMap<String, String> getCustoms(ConsoleCommandEvent e){
+	private HashMap<String, String> getCustoms(ConsoleCommandEvent e){
 		
-		THashMap<String, String> map = new THashMap<String, String>();
+		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("<cmdline>", e.getType().replace(e.getType().split(" ")[0], ""));
 		map.put("<cmdargcount>", e.getType().split(" ").length + "");
 		map.put("<cmdname>", e.getType().split(" ")[0]);

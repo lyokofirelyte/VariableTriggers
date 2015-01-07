@@ -1,6 +1,6 @@
 package com.github.lyokofirelyte.VariableTriggers.Events.Listeners.Player;
 
-import gnu.trove.map.hash.THashMap;
+import java.util.HashMap;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerRespawnEvent;
@@ -26,7 +26,7 @@ public class PlayerRespawn extends VTMap<Object, Object> implements AR {
 		if (getList("Worlds").contains(e.getPlayer().getWorld().getName())){
 			if (getLong("ActiveCooldown") <= System.currentTimeMillis()){
 				if (getList("main").size() > 0){
-					new VTParser(main, "PlayerRespawn.yml", "main", getList("main"), e.getPlayer().getLocation(), new THashMap<String, String>(), e.getPlayer().getName()).start();
+					new VTParser(main, "PlayerRespawn.yml", "main", getList("main"), e.getPlayer().getLocation(), new HashMap<String, String>(), e.getPlayer().getName()).start();
 					cooldown();
 				}
 			}

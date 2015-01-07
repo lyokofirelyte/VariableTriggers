@@ -1,6 +1,6 @@
 package com.github.lyokofirelyte.VariableTriggers.Events.Listeners.Player;
 
-import gnu.trove.map.hash.THashMap;
+import java.util.HashMap;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
@@ -38,10 +38,10 @@ public class PlayerClickAir extends VTMap<Object, Object> implements AR {
 		}
 	}
 	
-	private THashMap<String, String> getCustoms(PlayerInteractEvent e){
+	private HashMap<String, String> getCustoms(PlayerInteractEvent e){
 		
 		Vector loc = e.getPlayer().getLocation().toVector();
-		THashMap<String, String> map = new THashMap<String, String>();
+		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("<clicktype>", e.getAction().name());
 		
 		return map;

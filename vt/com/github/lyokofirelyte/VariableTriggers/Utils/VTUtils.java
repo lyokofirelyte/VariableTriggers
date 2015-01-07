@@ -1,11 +1,11 @@
 package com.github.lyokofirelyte.VariableTriggers.Utils;
 
-import gnu.trove.map.hash.THashMap;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -66,9 +66,9 @@ public class VTUtils implements AR {
 		int y = l.getBlockY();
 		int z = l.getBlockZ();
 		
-		Map<String, Integer> map = new THashMap<String, Integer>();
-		Map<String, List<String>> otherMap = new THashMap<String, List<String>>();
-		Map<String, List<String>> returnMap = new THashMap<String, List<String>>();
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		Map<String, List<String>> otherMap = new HashMap<String, List<String>>();
+		Map<String, List<String>> returnMap = new HashMap<String, List<String>>();
 		String curr = "none";
 		int max = -1;
 		
@@ -195,7 +195,7 @@ public class VTUtils implements AR {
 	public static String getUUID(String player){
 		
 		UUIDFetcher fetcher = new UUIDFetcher(Arrays.asList(player));
-		Map<String, UUID> response = new THashMap<String, UUID>();
+		Map<String, UUID> response = new HashMap<String, UUID>();
 		
 		try {
 			response = fetcher.call();

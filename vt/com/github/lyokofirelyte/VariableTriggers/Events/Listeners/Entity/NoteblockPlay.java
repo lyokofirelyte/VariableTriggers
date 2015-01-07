@@ -1,6 +1,6 @@
 package com.github.lyokofirelyte.VariableTriggers.Events.Listeners.Entity;
 
-import gnu.trove.map.hash.THashMap;
+import java.util.HashMap;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.NotePlayEvent;
@@ -36,9 +36,9 @@ public class NoteblockPlay extends VTMap<Object, Object> implements AR {
 		}
 	}
 	
-	private THashMap<String, String> getCustoms(NotePlayEvent e){
+	private HashMap<String, String> getCustoms(NotePlayEvent e){
 
-		THashMap<String, String> map = new THashMap<String, String>();
+		HashMap<String, String> map = new HashMap<String, String>();
 
 		map.put("<note:octave>", e.getNote().getOctave() + "");
 		map.put("<note:tone>", e.getNote().getTone().getId() + "");

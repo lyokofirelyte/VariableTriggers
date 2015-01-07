@@ -1,20 +1,21 @@
 package com.github.lyokofirelyte.VariableTriggers.Identifiers;
 
-import gnu.trove.map.hash.THashMap;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-public class VTMap<K, V> extends THashMap<Object, Object> {
-	
+public class VTMap<K, V> extends HashMap<Object, Object> {
+
+	private static final long serialVersionUID = System.currentTimeMillis();
+
 	public char getChar(Object i){
 		
 		if (containsKey(toString(i))){
@@ -146,8 +147,8 @@ public class VTMap<K, V> extends THashMap<Object, Object> {
 		return (List<String>) get(toString(i));
 	}
 	
-	public THashMap<String, List<String>> getScripts(){
-		return (THashMap<String, List<String>>) get(toString(VTData.SCRIPTS));
+	public HashMap<String, List<String>> getScripts(){
+		return (HashMap<String, List<String>>) get(toString(VTData.SCRIPTS));
 	}
 	
 	public String valuesToString(){
@@ -283,8 +284,8 @@ public class VTMap<K, V> extends THashMap<Object, Object> {
 		
 		File file = null;
 		YamlConfiguration scriptYaml = null;
-		Map<String, YamlConfiguration> yamls = new THashMap<String, YamlConfiguration>();
-		Map<String, File> files = new THashMap<String, File>();
+		Map<String, YamlConfiguration> yamls = new HashMap<String, YamlConfiguration>();
+		Map<String, File> files = new HashMap<String, File>();
 		
 		try {
 			

@@ -2,15 +2,13 @@ package com.github.lyokofirelyte.VariableTriggers.Events.Listeners;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import gnu.trove.map.hash.THashMap;
 
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.command.defaults.MeCommand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
@@ -167,7 +165,7 @@ public class VTListener implements AR {
 			
 			if (main.clicks.containsKey(check + ".Script") && main.clicks.getLong(check + ".ActiveCooldown") <= System.currentTimeMillis()){
 				main.clicks.cooldown(check);
-				new VTParser(main, "ClickTriggers.yml", check, main.clicks.getList(check + ".Script"), l, new THashMap<String, String>(), e.getPlayer().getName()).start();
+				new VTParser(main, "ClickTriggers.yml", check, main.clicks.getList(check + ".Script"), l, new HashMap<String, String>(), e.getPlayer().getName()).start();
 			}
 		}
 	}
@@ -212,7 +210,7 @@ public class VTListener implements AR {
 				if (x == cX && y == cY && z == cZ){
 					if (main.walks.getLong(keySplit[0] + "." + keySplit[1] + ".ActiveCooldown") <= System.currentTimeMillis()){
 						main.walks.cooldown(keySplit[0] + "." + keySplit[1]);
-						new VTParser(main, "WalkTriggers.yml", keySplit[1], main.walks.getList(keySplit[0] + "." + keySplit[1] + ".Script"), l, new THashMap<String, String>(), e.getPlayer().getName()).start();
+						new VTParser(main, "WalkTriggers.yml", keySplit[1], main.walks.getList(keySplit[0] + "." + keySplit[1] + ".Script"), l, new HashMap<String, String>(), e.getPlayer().getName()).start();
 					}
 					break;
 				}
@@ -220,9 +218,9 @@ public class VTListener implements AR {
 		}
 	}
 	
-	public THashMap<String, String> getAreaCustoms(String name, String type){
+	public HashMap<String, String> getAreaCustoms(String name, String type){
 		
-		THashMap<String, String> map = new THashMap<String, String>();
+		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("<areaentered>", name);
 		map.put("<areaexited>", name);
 		map.put("<movetype>", type);

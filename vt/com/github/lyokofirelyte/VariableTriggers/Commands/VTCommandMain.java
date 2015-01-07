@@ -1,11 +1,11 @@
 package com.github.lyokofirelyte.VariableTriggers.Commands;
 
-import gnu.trove.map.hash.THashMap;
 
 import java.io.File;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -184,7 +184,7 @@ public class VTCommandMain implements AR {
 						Player user = args.length == 3 ? Bukkit.getPlayer(args[2]) : ((Player) p);
 						String[] vars = args[1].split("\\:");
 						if (main.vars.getScripts().containsKey(vars[0] + "_" + vars[1])){
-							new VTParser(main, vars[0], vars[1], main.vars.getScripts().get(vars[0] + "_" + vars[1]), user.getLocation(), new THashMap<String, String>(), user.getName()).start();
+							new VTParser(main, vars[0], vars[1], main.vars.getScripts().get(vars[0] + "_" + vars[1]), user.getLocation(), new HashMap<String, String>(), user.getName()).start();
 						}
 					} else {
 						VTUtils.s(p, "/vt run is for players!");

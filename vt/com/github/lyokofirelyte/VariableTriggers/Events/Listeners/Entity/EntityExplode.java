@@ -1,6 +1,6 @@
 package com.github.lyokofirelyte.VariableTriggers.Events.Listeners.Entity;
 
-import gnu.trove.map.hash.THashMap;
+import java.util.HashMap;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -38,9 +38,9 @@ public class EntityExplode extends VTMap<Object, Object> implements AR {
 		}
 	}
 	
-	private THashMap<String, String> getCustoms(EntityExplodeEvent e){
+	private HashMap<String, String> getCustoms(EntityExplodeEvent e){
 
-		THashMap<String, String> map = new THashMap<String, String>();
+		HashMap<String, String> map = new HashMap<String, String>();
 		String type = e.getEntity().getType().name();
 		int x = 0;
 		

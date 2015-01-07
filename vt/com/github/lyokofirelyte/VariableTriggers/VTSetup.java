@@ -1,12 +1,11 @@
 package com.github.lyokofirelyte.VariableTriggers;
 
-import gnu.trove.map.hash.THashMap;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.zip.ZipEntry;
@@ -40,8 +39,8 @@ public class VTSetup {
 	private VariableTriggers main;
 	private VTRegistry reg;
 	
-	public Map<String, Object> registeredClasses = new THashMap<String, Object>();
-    public Map<List<String>, Object> commandMap = new THashMap<>();
+	public Map<String, Object> registeredClasses = new HashMap<String, Object>();
+    public Map<List<String>, Object> commandMap = new HashMap<>();
     public List<String> syncTasks = new ArrayList<String>();
     public String base = "./plugins/VariableTriggers/";
 	
@@ -214,7 +213,7 @@ public class VTSetup {
 	
 	public void scripts(){
 		
-		Map<String, List<String>> scriptMap = new THashMap<String, List<String>>();
+		Map<String, List<String>> scriptMap = new HashMap<String, List<String>>();
 		
 		for (String file : new File(base + "scripts/").list()){
 			if (file.endsWith(".script.yml")){
@@ -406,7 +405,7 @@ public class VTSetup {
 		if (eventFile.exists()){
 			YamlConfiguration config = YamlConfiguration.loadConfiguration(eventFile);
 			
-			Map<String, YamlConfiguration> eventsMap = new THashMap<String, YamlConfiguration>();
+			Map<String, YamlConfiguration> eventsMap = new HashMap<String, YamlConfiguration>();
 			
 			String[][] events = new String[][]{
 				new String[]{ "PlayerDeath", base + "events/player/PlayerDeath.yml" },
@@ -417,7 +416,7 @@ public class VTSetup {
 				new String[]{ "Interact", base + "events/player/PlayerInteract.yml" },
 				new String[]{ "EntitySpawn", base + "events/entity/EntitySpawn.yml" },
 				new String[]{ "Chat", base + "events/player/PlayerChat.yml" },
-				new String[]{ "Timer", base + "events/system/Timer.yml" },
+				new String[]{ "Timer", base + "events/system/SystemTimer.yml" },
 				new String[]{ "InventoryClick", base + "events/player/PlayerClickInventory.yml" },
 				new String[]{ "BlockBreak", base + "events/player/PlayerBreakBlock.yml" },
 				new String[]{ "BlockPlaced", base + "events/player/PlayerPlaceBlock.yml" },

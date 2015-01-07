@@ -1,6 +1,6 @@
 package com.github.lyokofirelyte.VariableTriggers.Events.Listeners.Entity;
 
-import gnu.trove.map.hash.THashMap;
+import java.util.HashMap;
 
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -35,9 +35,9 @@ public class ProjectileHit extends VTMap<Object, Object> implements AR {
 		}
 	}
 	
-	private THashMap<String, String> getCustoms(ProjectileHitEvent e){
+	private HashMap<String, String> getCustoms(ProjectileHitEvent e){
 
-		THashMap<String, String> map = new THashMap<String, String>();
+		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("<projectile>", e.getEntity().getType().name().toLowerCase());
 		map.put("<projectileshooter>", e.getEntity().getShooter().getType().name().toLowerCase());
 		

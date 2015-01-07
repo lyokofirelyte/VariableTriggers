@@ -1,6 +1,6 @@
 package com.github.lyokofirelyte.VariableTriggers.Events.Listeners.Player;
 
-import gnu.trove.map.hash.THashMap;
+import java.util.HashMap;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -29,7 +29,7 @@ public class PlayerJoin extends VTMap<Object, Object> implements AR {
 					if (getBool("Cancelled")){
 						e.setJoinMessage(null);
 					}
-					new VTParser(main, "PlayerJoin.yml", "main", getList("main"), e.getPlayer().getLocation(), new THashMap<String, String>(), e.getPlayer().getName()).start();
+					new VTParser(main, "PlayerJoin.yml", "main", getList("main"), e.getPlayer().getLocation(), new HashMap<String, String>(), e.getPlayer().getName()).start();
 					cooldown();
 				}
 			}

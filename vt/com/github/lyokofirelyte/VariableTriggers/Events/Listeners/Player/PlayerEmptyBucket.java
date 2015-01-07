@@ -1,6 +1,6 @@
 package com.github.lyokofirelyte.VariableTriggers.Events.Listeners.Player;
 
-import gnu.trove.map.hash.THashMap;
+import java.util.HashMap;
 
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
@@ -37,9 +37,9 @@ public class PlayerEmptyBucket extends VTMap<Object, Object> implements AR {
 		}
 	}
 	
-	private THashMap<String, String> getCustoms(PlayerBucketEmptyEvent e){
+	private HashMap<String, String> getCustoms(PlayerBucketEmptyEvent e){
 
-		THashMap<String, String> map = new THashMap<String, String>();
+		HashMap<String, String> map = new HashMap<String, String>();
 		Location l = e.getBlockClicked().getLocation();
 		map.put("<emptylocation>", l.getWorld().getName() + "," + l.getBlockX() + "," + l.getBlockY() + "," + l.getBlockZ());
 

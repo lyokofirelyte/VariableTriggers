@@ -1,6 +1,6 @@
 package com.github.lyokofirelyte.VariableTriggers.Events.Listeners.Player;
 
-import gnu.trove.map.hash.THashMap;
+import java.util.HashMap;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerBedEnterEvent;
@@ -29,7 +29,7 @@ public class PlayerEnterBed extends VTMap<Object, Object> implements AR {
 					if (getBool("Cancelled")){
 						e.setCancelled(true);
 					}
-					new VTParser(main, "PlayerEnterBed.yml", "main", getList("main"), e.getBed().getLocation(), new THashMap<String, String>(), e.getPlayer().getName()).start();
+					new VTParser(main, "PlayerEnterBed.yml", "main", getList("main"), e.getBed().getLocation(), new HashMap<String, String>(), e.getPlayer().getName()).start();
 					cooldown();
 				}
 			}

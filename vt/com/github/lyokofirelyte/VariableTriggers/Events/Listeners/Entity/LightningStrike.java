@@ -1,6 +1,6 @@
 package com.github.lyokofirelyte.VariableTriggers.Events.Listeners.Entity;
 
-import gnu.trove.map.hash.THashMap;
+import java.util.HashMap;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.weather.LightningStrikeEvent;
@@ -29,7 +29,7 @@ public class LightningStrike extends VTMap<Object, Object> implements AR {
 					e.setCancelled(true);
 				}
 				if (getList("main").size() > 0){
-					new VTParser(main, "LightningStrike.yml", "main", getList("main"), e.getLightning().getLocation(), new THashMap<String, String>(), "lightning_strike").start();
+					new VTParser(main, "LightningStrike.yml", "main", getList("main"), e.getLightning().getLocation(), new HashMap<String, String>(), "lightning_strike").start();
 					cooldown();
 				}
 			}
