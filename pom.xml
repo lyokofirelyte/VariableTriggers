@@ -11,17 +11,11 @@
 	</properties>
 	<dependencies>
 		<dependency>
-			<groupId>net.milkbowl.vault</groupId>
-			<artifactId>Vault</artifactId>
-			<version>1.2.27</version>
+			<groupId>com.github.lyokofirelyte</groupId>
+			<artifactId>CB</artifactId>
+			<version>1.0</version>
 		</dependency>
 	</dependencies>
-	<repositories>
-		<repository>
-		<id>vault-repo</id>
-			<url>http://ci.herocraftonline.com/plugin/repository/everything</url>
-		</repository>
-	</repositories>
 	<build>
 		<sourceDirectory>vt</sourceDirectory>
 		<resources>

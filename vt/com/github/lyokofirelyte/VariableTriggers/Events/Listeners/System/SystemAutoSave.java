@@ -25,9 +25,9 @@ public class SystemAutoSave extends VTMap<Object, Object> implements AR, Runnabl
 			if (getList("main").size() > 0){
 				new VTParser(main, "SystemAutoSave.yml", "main", getList("main"), new Location(Bukkit.getWorlds().get(0), 0, 0, 0), new HashMap<String, String>(), "VTSystem").start();
 				VTCommandMain cmd = (VTCommandMain) main.getInstance(VTCommandMain.class);
-				cmd.onVTCommand(Bukkit.getConsoleSender(), new String[]{ "sv" });
-				cmd.onVTCommand(Bukkit.getConsoleSender(), new String[]{ "ss" });
-				cmd.onVTCommand(Bukkit.getConsoleSender(), new String[]{ "st" });
+				cmd.onVT(Bukkit.getConsoleSender(), new String[]{ "sv" }, "VTMAIN");
+				cmd.onVT(Bukkit.getConsoleSender(), new String[]{ "ss" }, "VTMAIN");
+				cmd.onVT(Bukkit.getConsoleSender(), new String[]{ "st" }, "VTMAIN");
 				cooldown();
 			}
 		}

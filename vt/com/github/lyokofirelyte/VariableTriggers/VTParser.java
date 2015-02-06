@@ -717,7 +717,7 @@ public class VTParser {
 							try {
 								ItemStack i = toModify.getItemInHand();
 								ItemMeta im = i.getItemMeta();
-								im.setDisplayName(main.AS(VTUtils.createString(args, 2)).replaceAll("__", " "));
+								im.setDisplayName(main.AS(VTUtils.createString(args, 3)));
 								i.setItemMeta(im);
 								toModify.setItemInHand(i);
 							} catch (Exception e){
@@ -1563,7 +1563,7 @@ public class VTParser {
 			case "triggerloc": return triggerLoc.getWorld().getName() + "," + triggerLoc.getBlockX() + "," + triggerLoc.getBlockY() + "," + triggerLoc.getBlockZ();
 			case "worldname": return triggerLoc.getWorld().getName();
 			case "biome": return triggerLoc.getBlock().getBiome().name();
-			case "onlineplayeramount": return Bukkit.getOnlinePlayers().length + "";
+			case "onlineplayeramount": return Bukkit.getOnlinePlayers().size() + "";
 			default: return "null";
 		}
 	}

@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import org.bukkit.Location;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -48,7 +49,7 @@ public class PotionSplash extends VTMap<Object, Object> implements AR {
 		ItemStack i = e.getPotion().getItem();
 		int x = 0;
 		
-		map.put("<thrower>", e.getPotion().getShooter().getType().name().toLowerCase());
+		map.put("<thrower>", ((Entity) e.getPotion().getShooter()).getType().name().toLowerCase());
 		map.put("<affectedentity:amount>", e.getAffectedEntities().size() + "");
 		map.put("<potion:effect:amount>", e.getPotion().getEffects().size() + "");
 		
