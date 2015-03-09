@@ -288,6 +288,7 @@ public class VTCommandMain implements AR {
 		main.vars.set(sender.getName() + "_clickRemoveMode", false);
 		main.vars.set(sender.getName() + "_clickEditMode", false);
 		main.vars.set(sender.getName() + "_clickMode", false);
+		main.vars.set(sender.getName() + "_clickScript", new ArrayList<String>());
 		
 		switch (args[0]){
 		

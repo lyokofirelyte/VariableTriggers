@@ -75,6 +75,7 @@ public class VTListener implements AR {
 			
 			if (!obj.containsKey(l.getWorld().getName() + "." + loc + ".Script")){
 				obj.set(l.getWorld().getName() + "." + loc + ".Script", new ArrayList<String>(Arrays.asList(last)));
+				System.out.println("SCRIPT: " + last);
 				obj.set(l.getWorld().getName() + "." + loc + ".Cooldown", 1);
 			} else {
 				obj.getList(l.getWorld().getName() + "." + loc + ".Script").add(last);
@@ -166,6 +167,14 @@ public class VTListener implements AR {
 			if (main.clicks.containsKey(check + ".Script") && main.clicks.getLong(check + ".ActiveCooldown") <= System.currentTimeMillis()){
 				main.clicks.cooldown(check);
 				new VTParser(main, "ClickTriggers.yml", check, main.clicks.getList(check + ".Script"), l, new HashMap<String, String>(), e.getPlayer().getName()).start();
+			}
+		}
+		
+		if (obj != null){
+			try {
+				obj.save();
+			} catch (Exception ee){
+				ee.printStackTrace();
 			}
 		}
 	}

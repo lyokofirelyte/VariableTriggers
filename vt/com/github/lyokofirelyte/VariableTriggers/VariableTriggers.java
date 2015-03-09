@@ -3,6 +3,7 @@ package com.github.lyokofirelyte.VariableTriggers;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -39,6 +40,10 @@ public class VariableTriggers extends JavaPlugin {
 
 	@Override
 	public void onEnable(){
+		
+		try {
+			getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+		} catch (Exception e){}
 		
 		logger = new FancyLogging(this);
 		logger.safeWarning("VariableTriggers is preparing files...");

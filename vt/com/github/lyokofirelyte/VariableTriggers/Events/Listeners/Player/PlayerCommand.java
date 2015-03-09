@@ -73,12 +73,12 @@ public class PlayerCommand extends VTMap<Object, Object> implements AR {
 		
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("<cmdline>", e.getMessage().replace(e.getMessage().split(" ")[0], ""));
-		map.put("<cmdargcount>", e.getMessage().split(" ").length + "");
+		map.put("<cmdargcount>", e.getMessage().split(" ").length-1 + "");
 		map.put("<cmdname>", e.getMessage().split(" ")[0].replace("\\/", ""));
 		
-		for (int i = 0; i < e.getMessage().split(" ").length; i++){
-			map.put("<cmdarg:" + (i+1) + ">", e.getMessage().split(" ")[i]);
-			map.put("<cmdarg" + (i+1) + ">", e.getMessage().split(" ")[i]);
+		for (int i = 0; i < e.getMessage().split(" ").length-1; i++){
+			map.put("<cmdarg:" + (i+1) + ">", e.getMessage().split(" ")[i+1]);
+			map.put("<cmdarg" + (i+1) + ">", e.getMessage().split(" ")[i+1]);
 		}
 		
 		return map;

@@ -1,6 +1,8 @@
 
 dev/beta build VTV2 additions
- - self-reminders and for kaydac, thanks for testing ;D
+ - self-reminders and for KyadCK, thanks for testing ;D
+ - this is not meant to be a full documentation, I'm just throwing things here so I know what I added
+ - / or didn't add /
 
 new placeholders:
 
@@ -235,4 +237,4 @@ move vars from obj.dataType.key to obj.key on boot
 @Some.Array is now $Some.Array because the [ ] is a better indicator; $Some.Array[10] is clear enough
 
 auto spigot detection, uses sync thread when necessary
-=== works with 1.8+ with trove library included! ===
+=== works with 1.8+ with trove library excluded! ===

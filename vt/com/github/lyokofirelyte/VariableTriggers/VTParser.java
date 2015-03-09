@@ -1,6 +1,7 @@
 package com.github.lyokofirelyte.VariableTriggers;
 
 import java.io.File;
+import java.net.Socket;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -43,6 +44,9 @@ import com.github.lyokofirelyte.VariableTriggers.Identifiers.VTConfig;
 import com.github.lyokofirelyte.VariableTriggers.Identifiers.VTData;
 import com.github.lyokofirelyte.VariableTriggers.Identifiers.VTMap;
 import com.github.lyokofirelyte.VariableTriggers.Utils.VTUtils;
+import com.google.common.collect.Iterables;
+import com.google.common.io.ByteArrayDataOutput;
+import com.google.common.io.ByteStreams;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldedit.regions.RegionSelector;
 
@@ -84,17 +88,18 @@ public class VTParser {
 		new Thread(
 			new Runnable(){
 				public void run(){
+					
+					if (main.vars.containsKey("@COOLDOWN " + scriptName)){
+						if (main.vars.getLong("@COOLDOWN " + scriptName) > System.currentTimeMillis()){
+							return;
+						}
+						main.vars.remove("@COOLDOWN " + scriptName);
+					}
+					
 					for (int i = 0; i < script.size(); i++){
 						
 						if (line >= script.size()){
 							return;
-						}
-						
-						if (main.vars.containsKey("@COOLDOWN " + scriptName)){
-							if (main.vars.getLong("@COOLDOWN " + scriptName) > System.currentTimeMillis()){
-								return;
-							}
-							main.vars.remove("@COOLDOWN " + scriptName);
 						}
 						
 						try {
@@ -197,7 +202,7 @@ public class VTParser {
 				
 				case "@BROADCAST":
 					
-					Bukkit.broadcastMessage(VTUtils.createString(args, 1));
+					Bukkit.broadcastMessage(VTUtils.AS(VTUtils.createString(args, 1)));
 					
 				break;
 				
@@ -360,10 +365,26 @@ public class VTParser {
 				
 				case "@COOLDOWN":
 					
-					main.vars.set("@COOLDOWN " + scriptName, new Long(System.currentTimeMillis() + Long.parseLong(args[1])));
+					main.vars.set("@COOLDOWN " + scriptName, new Long(System.currentTimeMillis() + (Long.parseLong(args[1])*1000L)));
 					
 				break;
 				
+				case "@SENDTOSERVER":
+					
+					if (Bukkit.getOnlinePlayers().size() > 0 && args.length == 3){
+						try {
+							ByteArrayDataOutput out = ByteStreams.newDataOutput();
+							out.writeUTF("ConnectOther");
+							out.writeUTF(args[1]);
+							out.writeUTF(args[2]);
+							Iterables.getFirst(Bukkit.getOnlinePlayers(), null).sendPluginMessage(main, "BungeeCord", out.toByteArray());
+						} catch (Exception e){
+							e.printStackTrace();
+						}
+					}
+					
+				break;
+
 				case "@CMD":
 					
 					p.performCommand(VTUtils.createString(args, 1));
@@ -431,7 +452,6 @@ public class VTParser {
 					} catch (Exception e){
 						main.debug("@DROPITEM - invalid args!", scriptName, line, fileName);
 					}
-					
 					
 				break;
 				
@@ -1295,6 +1315,15 @@ public class VTParser {
 						
 						testType = test.split(" ")[2];
 						neededResult = test.split(" ")[3];
+						
+						testType = parseVars(testType);
+						testType = parseHolders(testType);
+						testType = parseFunctionalHolders(testType);
+						
+						neededResult = parseVars(neededResult);
+						neededResult = parseHolders(neededResult);
+						neededResult = parseFunctionalHolders(neededResult);
+						
 						ok = eval(testType, neededResult, toTest);
 						prevSucc = ok;
 						
@@ -1375,8 +1404,8 @@ public class VTParser {
 			
 			case ">":
 				
-				if (isInteger(toTest) && isInteger(neededResult)){
-					ok = Integer.parseInt(toTest) > Integer.parseInt(neededResult);
+				if ((isInteger(toTest) || isLong(toTest)) && (isInteger(neededResult) || isLong(neededResult))){
+					ok = Long.parseLong(toTest) > Long.parseLong(neededResult);
 				} else {
 					ok = toTest.length() > neededResult.length();
 				}
@@ -1385,18 +1414,18 @@ public class VTParser {
 			
 			case "<":
 				
-				if (isInteger(toTest) && isInteger(neededResult)){
-					ok = Integer.parseInt(toTest) < Integer.parseInt(neededResult);
+				if ((isInteger(toTest) || isLong(toTest)) && (isInteger(neededResult) || isLong(neededResult))){
+					ok = Long.parseLong(toTest) < Long.parseLong(neededResult);
 				} else {
-					ok = toTest.length() > neededResult.length();
+					ok = toTest.length() < neededResult.length();
 				}
 				
 			break;
 			
 			case ">=":
 				
-				if (isInteger(toTest) && isInteger(neededResult)){
-					ok = Integer.parseInt(toTest) >= Integer.parseInt(neededResult);
+				if ((isInteger(toTest) || isLong(toTest)) && (isInteger(neededResult) || isLong(neededResult))){
+					ok = Long.parseLong(toTest) >= Long.parseLong(neededResult);
 				} else {
 					ok = toTest.length() >= neededResult.length();
 				}
@@ -1405,8 +1434,8 @@ public class VTParser {
 			
 			case "<=":
 				
-				if (isInteger(toTest) && isInteger(neededResult)){
-					ok = Integer.parseInt(toTest) <= Integer.parseInt(neededResult);
+				if ((isInteger(toTest) || isLong(toTest)) && (isInteger(neededResult) || isLong(neededResult))){
+					ok = Long.parseLong(toTest) <= Long.parseLong(neededResult);
 				} else {
 					ok = toTest.length() <= neededResult.length();
 				}
@@ -1438,6 +1467,17 @@ public class VTParser {
 		return true;
 	}
 	
+	private boolean isLong(String test){
+		
+		try {
+			long now = Long.parseLong(test);
+		} catch (Exception e){
+			return false;
+		}
+		
+		return true;
+	}
+	
 	private Location getLocFromString(String loc){
 		
 		String[] split = loc.contains(",") ? loc.split(",") : loc.split(" ");
@@ -1455,7 +1495,6 @@ public class VTParser {
 		return null;
 	}
 	
-	@SuppressWarnings("deprecation")
 	private Player getPlayerFromArg(String[] args, int arg){
 		
 		if (args.length > arg){
@@ -1844,8 +1883,7 @@ public class VTParser {
 						
 						case "var":
 							
-							arg = r(arg, curr, parseVars("@H " + curr));
-							arg = r(arg, "@H ", "");
+							arg = r(arg, curr, parseVars(args[1]));
 							
 						break;
 						
@@ -1869,7 +1907,11 @@ public class VTParser {
 										found = true;
 										if (args[0].equals("takeitem")){
 											if (i.getAmount() >= Integer.parseInt(args[3])){
-												i.setAmount(i.getAmount() - Integer.parseInt(args[3]));
+												if (i.getAmount() == 1){
+													i.setType(Material.AIR);
+												} else {
+													i.setAmount(i.getAmount() - Integer.parseInt(args[3]));
+												}
 												Bukkit.getPlayer(args[1]).updateInventory();
 											} else {
 												found = false;
