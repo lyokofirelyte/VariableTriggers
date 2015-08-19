@@ -6,6 +6,7 @@ author: Lyoko Firelyte
 
 softdepend:
   - Vault
+  - PlaceholderAPI
                              
 permissions:
     vtriggers.admin:

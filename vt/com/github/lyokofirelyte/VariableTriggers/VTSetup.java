@@ -11,8 +11,6 @@ import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import com.google.common.io.Files;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -33,6 +31,7 @@ import com.github.lyokofirelyte.VariableTriggers.Manager.VaultHook;
 import com.github.lyokofirelyte.VariableTriggers.Manager.WorldEditHook;
 import com.github.lyokofirelyte.VariableTriggers.Utils.FWTools;
 import com.github.lyokofirelyte.VariableTriggers.Utils.VTUtils;
+import com.google.common.io.Files;
 
 public class VTSetup {
 

@@ -1,7 +1,6 @@
 package com.github.lyokofirelyte.VariableTriggers;
 
 import java.io.File;
-import java.net.Socket;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -13,10 +12,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 
+import me.clip.placeholderapi.PlaceholderAPI;
 import net.milkbowl.vault.economy.EconomyResponse;
 
 import org.bukkit.Bukkit;
@@ -47,8 +48,6 @@ import com.github.lyokofirelyte.VariableTriggers.Utils.VTUtils;
 import com.google.common.collect.Iterables;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
-import com.sk89q.worldedit.bukkit.WorldEditPlugin;
-import com.sk89q.worldedit.regions.RegionSelector;
 
 public class VTParser {
 
@@ -81,6 +80,9 @@ public class VTParser {
 		this.sender = sender;
 		this.triggerLoc = triggerLoc;
 		p = Bukkit.getPlayer(sender) != null ? Bukkit.getPlayer(sender) : null;
+		for (String garbleGarble : script){
+			garbleGarble = garbleGarble.trim();
+		}
 	}
 	
 	public void start(){
@@ -143,7 +145,7 @@ public class VTParser {
 		).start();
 	}
 
-	@SuppressWarnings("deprecation")
+	@SuppressWarnings({ "deprecation", "unchecked" })
 	public void parse(){
 		
 		String currentLine = parseHolders(script.get(line));
@@ -230,7 +232,7 @@ public class VTParser {
 					
 				break;
 				
-				case "@WORLDEDIT":
+				/*case "@WORLDEDIT":
 					
 					if (main.we.hookSetup()){
 						
@@ -243,7 +245,7 @@ public class VTParser {
 								
 								String[] coords = args[2].split(",");
 								com.sk89q.worldedit.Vector v = new com.sk89q.worldedit.Vector(Double.parseDouble(coords[0]), Double.parseDouble(coords[1]), Double.parseDouble(coords[2]));
-								sel.selectPrimary(v);
+								sel.selectPrimary(v, we.getSession(p).getS);
 								
 							break;
 							
@@ -255,7 +257,7 @@ public class VTParser {
 								
 							break;
 							
-							/*case "CHANGEBLOCKS":
+							case "CHANGEBLOCKS":
 								
 								if (args.length == 3 && args[2].contains(":")){
 								
@@ -277,14 +279,14 @@ public class VTParser {
 									main.debug("@WORLDEDIT - changeblocks requires type:id.", scriptName, line, fileName);
 								}
 								
-							break;*/
+							break;
 						}
 						
 					} else {
 						main.debug("No WorldEdit found on the server!", scriptName, line, fileName);
 					}
 					
-				break;
+				break;*/
 				
 				case "@SCOREBOARD":
 					
@@ -306,14 +308,14 @@ public class VTParser {
 				
 				case "@CALL":
 					
-					List<String> scripts = null;
+					List<String> scripts = new ArrayList<String>();
 					int fails = 0;
 					
 					if (args[1].startsWith("this:")){
 						
 						for (String name : Arrays.asList("Player", "Entity", "System")){
 							try {
-								scripts = ((VTMap<Object, Object>) main.getInstance(Class.forName("com.github.lyokofirelyte.VariableTriggers.Events.Listeners." + name + "." + fileName.replace(".yml", "")))).getList(args[1].split("\\:")[1] + ".Script");
+								scripts = new ArrayList<String>(((VTMap<Object, Object>) main.getInstance(Class.forName("com.github.lyokofirelyte.VariableTriggers.Events.Listeners." + name + "." + fileName.replace(".yml", "")))).getList(args[1].split("\\:")[1] + ".Script"));
 								break;
 							} catch (Exception e3){
 								fails++;
@@ -326,7 +328,7 @@ public class VTParser {
 						}
 						
 					} else {
-						scripts = main.vars.getScripts().get(args[1].split("\\:")[0] + "_" + args[1].split("\\:")[1]);
+						scripts = new ArrayList<String>(main.vars.getScripts().get(args[1].split("\\:")[0] + "_" + args[1].split("\\:")[1]));
 					}
 					
 					try {
@@ -1554,7 +1556,11 @@ public class VTParser {
 			}
 		}
 
-		return args.size() > 0 ? args.get(args.size()-1) : arg;
+		String toReturn = args.size() > 0 ? args.get(args.size()-1) : arg;
+		try {
+			toReturn = PlaceholderAPI.setPlaceholders(p, toReturn);
+		} catch (Exception e){}
+		return toReturn;
 	}
 	
 
@@ -1837,7 +1843,8 @@ public class VTParser {
 						
 						case "getblocklos":
 							
-							List<Block> blocks = p.getLineOfSight(null, Integer.parseInt(args[2]));
+							Set set = null;
+							List<Block> blocks = p.getLineOfSight(set, Integer.parseInt(args[2]));
 						
 							if (blocks.size() > 0){
 							

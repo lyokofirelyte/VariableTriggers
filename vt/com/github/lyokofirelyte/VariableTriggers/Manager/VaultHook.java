@@ -1,14 +1,14 @@
 package com.github.lyokofirelyte.VariableTriggers.Manager;
 
+import net.milkbowl.vault.chat.Chat;
+import net.milkbowl.vault.economy.Economy;
+import net.milkbowl.vault.permission.Permission;
+
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.ServicesManager;
 
 import com.github.lyokofirelyte.VariableTriggers.VariableTriggers;
 import com.github.lyokofirelyte.VariableTriggers.Identifiers.AR;
-
-import net.milkbowl.vault.chat.Chat;
-import net.milkbowl.vault.economy.Economy;
-import net.milkbowl.vault.permission.Permission;
 
 public class VaultHook implements AR {
 	

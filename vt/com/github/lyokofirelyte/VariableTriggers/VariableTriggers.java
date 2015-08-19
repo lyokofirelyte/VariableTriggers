@@ -36,6 +36,8 @@ public class VariableTriggers extends JavaPlugin {
 	public int timerTask = 0;
 	public int saveTask = 0;
 	
+	static final String WRITE_OBJECT_SQL = "INSERT INTO java_objects(name, object_value) VALUES (?, ?)";
+	
     public Map<List<String>, Object> commandMap = new HashMap<>();
 
 	@Override
@@ -59,7 +61,7 @@ public class VariableTriggers extends JavaPlugin {
 		timerTask = Bukkit.getScheduler().scheduleSyncRepeatingTask(this, time, settings.getLong(VTConfig.TIMER_INTERVAL)*20L, settings.getLong(VTConfig.TIMER_INTERVAL)*20L);
 		saveTask = Bukkit.getScheduler().scheduleSyncRepeatingTask(this, save, 12000L, 12000L);
 		event(new VTSystemEvent(VTData.ENABLE));
-		
+		hook();
 		logger.safeWarning("VTV2 is ready.");
 	}
 	
@@ -78,12 +80,31 @@ public class VariableTriggers extends JavaPlugin {
 		logger.safeWarning("I don't want to go!");
 	}
 	
+	private void hook(){}
+		
+		/*if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null){
+			PlaceholderAPI.registerPlaceholderHook(this, new PlaceholderHook() {
+	            @Override
+	            public String onPlaceholderRequest(Player p, String identifier) {
+	                try {
+	                	if (vars.containsKey(identifier)){
+	                		return vars.getStr(identifier);
+	                	}
+	                } catch (Exception noMatch){}
+	                
+	                return "none";
+	            }
+	        });
+			logger.safeWarning("Hooked with PlaceholderAPI!");
+		}
+	}*/
+	
 	public void event(Event e){
 		Bukkit.getPluginManager().callEvent((Event) e);
 	}
 	
 	public boolean perms(CommandSender cs, String perm){
-		return vault.isPermsHooked() ? vault.perms.has(cs, perm) : cs.hasPermission(perm);
+		return cs.hasPermission(perm);
 	}
 	
 	public Object getInstance(Class<?> clazz){

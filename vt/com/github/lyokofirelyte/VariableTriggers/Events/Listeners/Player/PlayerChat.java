@@ -3,10 +3,7 @@ package com.github.lyokofirelyte.VariableTriggers.Events.Listeners.Player;
 import java.util.HashMap;
 
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.util.Vector;
 
 import com.github.lyokofirelyte.VariableTriggers.VTParser;
 import com.github.lyokofirelyte.VariableTriggers.VariableTriggers;
