@@ -616,7 +616,7 @@ public class VTParser {
 						case "LISTNAME":
 							
 							try {
-								toModify.setPlayerListName(main.AS(args[3]));
+								toModify.setPlayerListName(main.AS(args[3].replaceAll("__", " ")));
 							} catch (Exception e){
 								main.debug("@MODIFYPLAYER - invalid list name length!", scriptName, line, fileName);
 							}
