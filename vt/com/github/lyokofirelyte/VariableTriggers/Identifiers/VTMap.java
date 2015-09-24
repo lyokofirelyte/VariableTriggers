@@ -315,7 +315,7 @@ public class VTMap<K, V> extends HashMap<Object, Object> {
 	public void save(){
 		
 		YamlConfiguration yaml = YamlConfiguration.loadConfiguration(new File(getStr(VTData.FILE_PATH)));
-		remove(toString(VTData.SCRIPTS));
+		//remove(toString(VTData.SCRIPTS));
 		
 		for (Object o : keySet()){
 			yaml.set(toString(o), get(toString(o)));
