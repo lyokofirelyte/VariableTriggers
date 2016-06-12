@@ -28,7 +28,6 @@ import com.github.lyokofirelyte.VariableTriggers.Identifiers.VTData;
 import com.github.lyokofirelyte.VariableTriggers.Identifiers.VTMap;
 import com.github.lyokofirelyte.VariableTriggers.Manager.VTRegistry;
 import com.github.lyokofirelyte.VariableTriggers.Manager.VaultHook;
-import com.github.lyokofirelyte.VariableTriggers.Manager.WorldEditHook;
 import com.github.lyokofirelyte.VariableTriggers.Utils.FWTools;
 import com.github.lyokofirelyte.VariableTriggers.Utils.VTUtils;
 import com.google.common.io.Files;
@@ -150,11 +149,11 @@ public class VTSetup {
 		helpFiles();
 		
 		main.vault = (VaultHook) registeredClasses.get(VaultHook.class.toString());
-		main.we = (WorldEditHook) registeredClasses.get(WorldEditHook.class.toString());
+		//main.we = (WorldEditHook) registeredClasses.get(WorldEditHook.class.toString());
 		main.fw = new FWTools().init();
 		
 		main.vault.hookSetup();
-		main.we.hookSetup();
+		//main.we.hookSetup();
 
 		return this;
 	}

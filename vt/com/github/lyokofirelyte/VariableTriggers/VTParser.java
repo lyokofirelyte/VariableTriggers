@@ -17,9 +17,6 @@ import java.util.Set;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 
-import me.clip.placeholderapi.PlaceholderAPI;
-import net.milkbowl.vault.economy.EconomyResponse;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Effect;
@@ -48,6 +45,8 @@ import com.github.lyokofirelyte.VariableTriggers.Utils.VTUtils;
 import com.google.common.collect.Iterables;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
+
+import net.milkbowl.vault.economy.EconomyResponse;
 
 public class VTParser {
 
@@ -1557,9 +1556,9 @@ public class VTParser {
 		}
 
 		String toReturn = args.size() > 0 ? args.get(args.size()-1) : arg;
-		try {
+		/*try {
 			toReturn = PlaceholderAPI.setPlaceholders(p, toReturn);
-		} catch (Exception e){}
+		} catch (Exception e){}*/
 		return toReturn;
 	}
 	

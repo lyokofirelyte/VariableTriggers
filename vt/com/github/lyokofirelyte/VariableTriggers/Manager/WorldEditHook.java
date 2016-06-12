@@ -1,6 +1,6 @@
 package com.github.lyokofirelyte.VariableTriggers.Manager;
 
-import org.bukkit.Bukkit;
+/*import org.bukkit.Bukkit;
 
 import com.github.lyokofirelyte.VariableTriggers.VariableTriggers;
 import com.github.lyokofirelyte.VariableTriggers.Identifiers.AR;
@@ -30,4 +30,4 @@ public class WorldEditHook implements AR {
 	public WorldEditPlugin getWe(){
 		return we;
 	}
-}
+}*/

@@ -17,7 +17,6 @@ import com.github.lyokofirelyte.VariableTriggers.Identifiers.VTConfig;
 import com.github.lyokofirelyte.VariableTriggers.Identifiers.VTData;
 import com.github.lyokofirelyte.VariableTriggers.Identifiers.VTMap;
 import com.github.lyokofirelyte.VariableTriggers.Manager.VaultHook;
-import com.github.lyokofirelyte.VariableTriggers.Manager.WorldEditHook;
 import com.github.lyokofirelyte.VariableTriggers.Utils.FWTools;
 import com.github.lyokofirelyte.VariableTriggers.Utils.FancyLogging;
 
@@ -29,7 +28,7 @@ public class VariableTriggers extends JavaPlugin {
 	public FWTools fw;
 	public FancyLogging logger;
 	public VaultHook vault;
-	public WorldEditHook we;
+	//public WorldEditHook we;
 	public VTMap<Object, Object> clicks;
 	public VTMap<Object, Object> areas;
 	public VTMap<Object, Object> walks;
