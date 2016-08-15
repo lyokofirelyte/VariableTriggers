@@ -66,7 +66,6 @@ public class VariableTriggers extends JavaPlugin {
 	
 	@Override
 	public void onDisable(){
-		
 		settings.set(VTData.PLACEHOLDERS, null);
 		event(new VTSystemEvent(VTData.DISABLE));
 		vars.saveScripts();

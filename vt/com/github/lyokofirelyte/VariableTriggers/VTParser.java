@@ -24,17 +24,22 @@ import org.bukkit.FireworkEffect;
 import org.bukkit.FireworkEffect.Type;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Rotation;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
 import org.bukkit.block.Sign;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.ItemFrame;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.material.Lever;
+import org.bukkit.material.MaterialData;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
@@ -85,63 +90,26 @@ public class VTParser {
 	}
 	
 	public void start(){
-		
-		new Thread(
-			new Runnable(){
-				public void run(){
 					
-					if (main.vars.containsKey("@COOLDOWN " + scriptName)){
-						if (main.vars.getLong("@COOLDOWN " + scriptName) > System.currentTimeMillis()){
-							return;
-						}
-						main.vars.remove("@COOLDOWN " + scriptName);
-					}
-					
-					for (int i = 0; i < script.size(); i++){
-						
-						if (line >= script.size()){
-							return;
-						}
-						
-						try {
-							parse();
-							async = true;
-						} catch (IllegalStateException e){
-							
-							async = false;
-							
-							try {
-								
-								Bukkit.getScheduler().scheduleSyncDelayedTask(main, new Runnable(){
-									public void run(){
-										if (main.settings.getBool(VTConfig.ASYNC_WARNING)){
-											main.debug("Async fail! Moving to sync thread...", scriptName, line, fileName);
-										}
-										parse();
-										line++;
-									}
-								}, 0L);
-								
-							} catch (Exception ee){
-								ee.printStackTrace();
-								main.logger.warning("Failed to parse the entire line @ " + scriptName + " (" + line + ")");
-								line++;
-							}
-							
-						} catch (Exception e){
-							main.debug("Something went wrong with that line!", scriptName, line, fileName);
-							System.out.println("");
-							e.printStackTrace();
-							System.out.println("");
-						}
-						
-						if (async){
-							line++;
-						}
-					}
-				}
+		if (main.vars.containsKey("@COOLDOWN " + scriptName)){
+			if (main.vars.getLong("@COOLDOWN " + scriptName) > System.currentTimeMillis()){
+				return;
 			}
-		).start();
+			main.vars.remove("@COOLDOWN " + scriptName);
+		}
+		
+		for (int i = 0; i < script.size(); i++){
+			if (line >= script.size()){
+				return;
+			}
+			try {
+				parse();
+			} catch (Exception e){
+				e.printStackTrace();
+				main.logger.warning("Failed to parse the entire line @ " + scriptName + " (" + line + ")");
+				line++;
+			}
+		}
 	}
 
 	@SuppressWarnings({ "deprecation", "unchecked" })
@@ -151,18 +119,6 @@ public class VTParser {
 		currentLine = parseVars(currentLine);
 		currentLine = parseFunctionalHolders(currentLine);
 		final String[] args = currentLine.split(" ");
-		
-		//List<String> players = new ArrayList<String>();
-		//List<String> UUIDs = new ArrayList<String>();
-		/*Collection<? extends Player> players = Bukkit.getServer().getOnlinePlayers();
-		
-		for (Player p : players){
-			players.add(p.getName());
-			UUIDs.add(p.getUniqueId().toString());
-		}*/
-		
-		//main.vars.set("VTSystem.OnlinePlayers", players);
-		//main.vars.set("VTSystem.OnlineUUIDs", UUIDs);
 		
 		if (!currentLine.startsWith("\\//")){
 
@@ -201,6 +157,69 @@ public class VTParser {
 					
 				break;
 				
+				// BEGIN https://dev.bukkit.org/profiles/soliddanii/ CODE
+				
+					case "@ITEMFRAMESET":
+		                 
+		                    Block b3 = getLocFromString(args[2]).getBlock();
+		                    int type0 = Integer.parseInt(args[1].split("\\:")[0]);
+		                    Byte id0 = Byte.parseByte(args[1].split("\\:")[1]);
+		                    short damage0 = 0;
+	
+		                    for (Entity entity : b3.getWorld().getNearbyEntities(b3.getLocation(), 2, 2, 2)) {
+		                        if (entity instanceof ItemFrame) {
+		                            ItemFrame itemFrame = (ItemFrame) entity;
+		                            itemFrame.setItem(new ItemStack(type0, 1, damage0, id0));
+		                        }
+		                    }
+		                    
+	                break;
+	                
+					case "@ITEMFRAMEROTATE":
+		                 
+		                    Block b4 = getLocFromString(args[2]).getBlock();
+	
+		                    for (Entity entity : b4.getWorld().getNearbyEntities(b4.getLocation(), 2, 2, 2)) {
+		                        if (entity instanceof ItemFrame) {
+		                            ItemFrame itemFrame = (ItemFrame) entity;
+		                            itemFrame.setRotation(Rotation.valueOf(args[1]));
+		                        }
+		                    }
+		                    
+	                break;
+	                
+					case "@TOGGLELEVER":
+	                    
+						//Get the lever block
+                        Block b0 = getLocFromString(args[1]).getBlock();
+
+                        if (b0.getType() == Material.LEVER) {
+
+                            //Get lever state and Material Data
+                            BlockState b0S = b0.getState();
+                            MaterialData b0M = b0S.getData();
+
+                            //Get lever, change power and update state
+                            Lever lever = (Lever) b0M;
+                            lever.setPowered(!lever.isPowered());
+                            b0S.setData(lever);
+                            b0S.update(true);
+
+                            //Update Redstone Circuit:
+                            //Get the block that holds the lever, change to air and revert
+                            Block b1 = b0.getRelative(lever.getAttachedFace());
+                            BlockState initialSupportState = b1.getState();
+                            BlockState supportState = b1.getState();
+                            supportState.setType(Material.AIR);
+                            supportState.update(true, false);
+                            initialSupportState.update(true);
+
+                        }
+	                    
+	                break;
+	                
+	            // END https://dev.bukkit.org/profiles/soliddanii/ CODE
+				
 				case "@BROADCAST":
 					
 					Bukkit.broadcastMessage(VTUtils.AS(VTUtils.createString(args, 1)));
@@ -230,62 +249,6 @@ public class VTParser {
 					}
 					
 				break;
-				
-				/*case "@WORLDEDIT":
-					
-					if (main.we.hookSetup()){
-						
-						WorldEditPlugin we = main.we.getWe();
-						RegionSelector sel = we.getSession(p).getRegionSelector(we.wrapPlayer(p).getWorld());
-					
-						switch (args[1]){
-						
-							case "SETPOS1":
-								
-								String[] coords = args[2].split(",");
-								com.sk89q.worldedit.Vector v = new com.sk89q.worldedit.Vector(Double.parseDouble(coords[0]), Double.parseDouble(coords[1]), Double.parseDouble(coords[2]));
-								sel.selectPrimary(v, we.getSession(p).getS);
-								
-							break;
-							
-							case "SETPOS2":
-								
-								coords = args[2].split(",");
-								v = new com.sk89q.worldedit.Vector(Double.parseDouble(coords[0]), Double.parseDouble(coords[1]), Double.parseDouble(coords[2]));
-								sel.selectSecondary(v);
-								
-							break;
-							
-							case "CHANGEBLOCKS":
-								
-								if (args.length == 3 && args[2].contains(":")){
-								
-									Selection sele = we.getSelection(p);
-									Location max = sele.getMaximumPoint();
-									Location min = sele.getMinimumPoint();
-									int blockID = Integer.parseInt(args[2].split(":")[0]);
-									byte blockType = Byte.parseByte(args[2].split(":")[1]);
-									
-									for (int xx = min.getBlockX(); xx <= max.getBlockX(); xx++){
-										for (int yy = min.getBlockY(); yy <= max.getBlockY(); yy++){
-											for (int zz = min.getBlockZ(); zz <= max.getBlockZ(); zz++){
-												new Location(sele.getWorld(), xx, yy, zz).getBlock().setTypeIdAndData(blockID, blockType, true);
-											}
-										}
-									}
-									
-								} else {
-									main.debug("@WORLDEDIT - changeblocks requires type:id.", scriptName, line, fileName);
-								}
-								
-							break;
-						}
-						
-					} else {
-						main.debug("No WorldEdit found on the server!", scriptName, line, fileName);
-					}
-					
-				break;*/
 				
 				case "@SCOREBOARD":
 					
