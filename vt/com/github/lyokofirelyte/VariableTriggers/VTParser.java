@@ -779,7 +779,11 @@ public class VTParser {
 							if (main.settings.getBool(VTConfig.ADVANCED_MODE)){
 								
 								try {
-									toModify.setBanned(Boolean.valueOf(args[3]));
+									if (Boolean.valueOf(args[3])) {
+                                		Bukkit.getBanList(org.bukkit.BanList.Type.NAME).addBan(toModify.getName(), "Banned by VT Operator", null, "Console");
+                                	} else {
+                                		Bukkit.getBanList(org.bukkit.BanList.Type.NAME).pardon(toModify.getName());
+                                	}
 									main.logger.safeWarning(args[2] + " changed banned status via a script!");
 								} catch (Exception e){
 									main.debug("@MODIFYPLAYER - BANNED is true or false!", scriptName, line, fileName);

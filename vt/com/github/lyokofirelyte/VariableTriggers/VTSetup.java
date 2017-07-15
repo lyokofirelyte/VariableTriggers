@@ -3,6 +3,7 @@ package com.github.lyokofirelyte.VariableTriggers;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -72,7 +73,7 @@ public class VTSetup {
 			main.settings.set(VTConfig.FIRST_RUN, true);
 		}
 		
-		main.settings.set(VTData.PLACEHOLDERS, YamlConfiguration.loadConfiguration(main.getResource("placeholders.yml")).getStringList("placeholders"));
+		main.settings.set(VTData.PLACEHOLDERS, YamlConfiguration.loadConfiguration(new InputStreamReader(main.getResource("placeholders.yml"))).getStringList("placeholders"));
 		
         List<Class<?>> allClasses = new ArrayList<Class<?>>();
         
