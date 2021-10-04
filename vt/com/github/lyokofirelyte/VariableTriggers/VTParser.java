@@ -1371,8 +1371,11 @@ public class VTParser {
 			break;
 			
 			case ">":
-				
-				if ((isInteger(toTest) || isLong(toTest)) && (isInteger(neededResult) || isLong(neededResult))){
+
+				if (isFloat(toTest) && isFloat(neededResult)){
+					ok = Float.parseFloat(toTest) > Float.parseFloat(neededResult);
+				}
+				else if ((isInteger(toTest) || isLong(toTest)) && (isInteger(neededResult) || isLong(neededResult))){
 					ok = Long.parseLong(toTest) > Long.parseLong(neededResult);
 				} else {
 					ok = toTest.length() > neededResult.length();
@@ -1381,8 +1384,11 @@ public class VTParser {
 			break;
 			
 			case "<":
-				
-				if ((isInteger(toTest) || isLong(toTest)) && (isInteger(neededResult) || isLong(neededResult))){
+
+				if (isFloat(toTest) && isFloat(neededResult)){
+					ok = Float.parseFloat(toTest) < Float.parseFloat(neededResult);
+				}
+				else if ((isInteger(toTest) || isLong(toTest)) && (isInteger(neededResult) || isLong(neededResult))){
 					ok = Long.parseLong(toTest) < Long.parseLong(neededResult);
 				} else {
 					ok = toTest.length() < neededResult.length();
@@ -1391,8 +1397,11 @@ public class VTParser {
 			break;
 			
 			case ">=":
-				
-				if ((isInteger(toTest) || isLong(toTest)) && (isInteger(neededResult) || isLong(neededResult))){
+
+				if (isFloat(toTest) && isFloat(neededResult)){
+					ok = Float.parseFloat(toTest) >= Float.parseFloat(neededResult);
+				}
+				else if ((isInteger(toTest) || isLong(toTest)) && (isInteger(neededResult) || isLong(neededResult))){
 					ok = Long.parseLong(toTest) >= Long.parseLong(neededResult);
 				} else {
 					ok = toTest.length() >= neededResult.length();
@@ -1401,8 +1410,11 @@ public class VTParser {
 			break;
 			
 			case "<=":
-				
-				if ((isInteger(toTest) || isLong(toTest)) && (isInteger(neededResult) || isLong(neededResult))){
+
+				if (isFloat(toTest) && isFloat(neededResult)){
+					ok = Float.parseFloat(toTest) <= Float.parseFloat(neededResult);
+				}
+				else if ((isInteger(toTest) || isLong(toTest)) && (isInteger(neededResult) || isLong(neededResult))){
 					ok = Long.parseLong(toTest) <= Long.parseLong(neededResult);
 				} else {
 					ok = toTest.length() <= neededResult.length();
@@ -1422,6 +1434,26 @@ public class VTParser {
 		}
 		
 		return ok;
+	}
+
+	private boolean isDouble(String test){
+		try {
+			double now = Double.parseDouble(test);
+		} catch (Exception e){
+			return false;
+		}
+
+		return true;
+	}
+
+	private boolean isFloat(String test){
+		try {
+			float now = Float.parseFloat(test);
+		} catch (Exception e){
+			return false;
+		}
+
+		return true;
 	}
 	
 	private boolean isInteger(String test){
